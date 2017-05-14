@@ -72,13 +72,11 @@ export default ({ user, id, title, description, categoryList, points, users, dat
                         
                         const userMeta = userList[_user]
 
-                        updates[_user] = {
-                            points: userMeta.points
-                        }
+                        updates[_user] = Object.assign({}, userMeta)
 
                         todo.categoryList.forEach(category => {
 
-                            updates[_user]['points'][category] = userMeta.points[category] || 0 + calculatedPoints
+                            updates[_user]['points'][category] += calculatedPoints
                         })
                     })
 
