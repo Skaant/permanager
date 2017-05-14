@@ -9,12 +9,29 @@ import firebaseConfig from '../constants/firebase'
 
 firebase.initializeApp(firebaseConfig)
 
-const parseUserForState = (user, setState) => 
+const parseUserForState = (user, setState) => {
 
-    firebase.database().ref('/users/' + user.uid).on('value', snapshot => {
+    const userRef = firebase.database().ref('/users/' + user.uid)
+
+    userRef.on('value', snapshot => {
         
-        setState({ user: Object.assign({}, { ...user }, { ...snapshot.val() }) })
+        const _user = snapshot && snapshot.val()
+
+        if (_user)
+            setState({ user: Object.assign({}, { ...user }, { ..._user }) })
+        else {
+
+            console.log(user, _user)
+
+            const points = [0, 1, 2, 3, 4, 5, 6, 7].reduce((result, current) => {
+                result[current] = 0
+                return result
+            }, {})
+
+            userRef.set({ points })
+        }
     })
+}
 
 class App extends Component {
 
