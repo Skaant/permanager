@@ -1,0 +1,1 @@
+export default firebaseList => Object.keys(firebaseList ||[]).map(key => Object.assign({}, { id: key }, firebaseList[key]))

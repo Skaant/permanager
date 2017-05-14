@@ -1,0 +1,173 @@
+button:disabled {
+    background-color: #B7B7B7;
+}
+
+.header {
+    margin-top: 10px;
+}
+
+.header-user__points {
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 0.7em;
+}
+
+.app-title {
+    text-align: center;
+    padding-top: 25px;
+}
+
+.app-subtitle {
+    text-align: center;
+    color: #999;
+}
+
+.category-selector {
+    margin-bottom: 15px;
+}
+
+.user-name {
+    background-color: #DFD9E2;
+    text-align: center;
+    margin: 5px;
+    padding: 0.4em;
+    box-sizing: border-box;
+}
+
+.filter-list {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.filter-list > .filter-item {
+    width: 100%;
+    height: 42px;
+}
+
+.todo-list__title,
+.todo-form__title,
+.todo-filters__title {
+    text-align: center;
+}
+
+.category-selector__item,
+.category-list__item,
+.difficulty-item,
+.todo-item__points,
+.user-name {
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.category-selector__item {  
+    width: calc(25% - 10px);
+    height: 3em;
+    text-align: center;
+    margin: 5px;
+    padding: 0.6em 0;
+    box-sizing: border-box;
+}
+
+.category-selector__item--selected,
+.category-list__item,
+.difficulty-item--selected,
+.todo-item__points,
+.header-user__points {
+    font-weight: bold;
+    color: #F8F8F8;
+}
+
+.category-list__item {
+    text-align: center;
+    margin: 5px;
+    padding: 0.6em 0.6em;
+}
+
+.category-selector__item--fourmi.category-selector__item--selected,
+.category-list__item--fourmi,
+.header-user__points--fourmi {
+    background-color: #D62839;
+}
+
+.category-selector__item--cerf.category-selector__item--selected,
+.category-list__item--cerf,
+.header-user__points--cerf {
+    background-color: #305252;
+}
+
+.category-selector__item--chamois.category-selector__item--selected,
+.category-list__item--chamois,
+.header-user__points--chamois {
+    background-color: #654236;
+}
+
+.category-selector__item--sanglier.category-selector__item--selected,
+.category-list__item--sanglier,
+.header-user__points--sanglier {
+    background-color: #2E294E;
+}
+
+.category-selector__item--buse.category-selector__item--selected,
+.category-list__item--buse,
+.header-user__points--buse {
+    background-color: #C8963E;
+}
+
+.category-selector__item--lézard.category-selector__item--selected,
+.category-list__item--lézard,
+.header-user__points--lézard {
+    background-color: #E3655B;
+}
+
+.category-selector__item--araignée.category-selector__item--selected,
+.category-list__item--araignée,
+.header-user__points--araignée {
+    background-color: #6699CC;
+}
+
+.category-selector__item--loup.category-selector__item--selected,
+.category-list__item--loup,
+.header-user__points--loup {
+    background-color: #43C59E;
+} 
+
+.difficulty-item {
+    width: calc(25% - 10px);
+    height: 2.6em;
+    text-align: center;
+    margin: 0 5px;
+    padding: 0.4em 0;
+    box-sizing: border-box;
+}
+
+.todo-item__points {
+    text-align: center;
+    margin: 0 0 0 10px;
+    padding: 0.4em 0.4em;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.difficulty-item--simple.difficulty-item--selected,
+.todo-item__points--simple {
+    background-color: #A9927D;
+}
+
+.difficulty-item--moyenne.difficulty-item--selected,
+.todo-item__points--moyenne {
+    background-color: #52AA5E;
+}
+
+.difficulty-item--complexe.difficulty-item--selected,
+.todo-item__points--complexe {
+    background-color: #175676;
+}
+
+.difficulty-item--exceptionnelle.difficulty-item--selected,
+.todo-item__points--exceptionnelle {
+    background-color: #6D1A36;
+}
