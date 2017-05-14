@@ -14,10 +14,10 @@ export default [{
     label: 'buse',
     description: 'exploration des alentours, cartographie & découvert de points d\'intérêts'
 }, {
-    label: 'lézard',
+    label: 'lezard',
     description: 'flemme & maximisation de la flemme'
 }, {
-    label: 'araignée',
+    label: 'araignee',
     description: 'design, planification & feedback'
 }, {
     label: 'loup',

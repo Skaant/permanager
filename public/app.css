@@ -117,15 +117,15 @@ button:disabled {
     background-color: #C8963E;
 }
 
-.category-selector__item--lézard.category-selector__item--selected,
-.category-list__item--lézard,
-.header-user__points--lézard {
+.category-selector__item--lezard.category-selector__item--selected,
+.category-list__item--lezard,
+.header-user__points--lezard {
     background-color: #E3655B;
 }
 
-.category-selector__item--araignée.category-selector__item--selected,
-.category-list__item--araignée,
-.header-user__points--araignée {
+.category-selector__item--araignee.category-selector__item--selected,
+.category-list__item--araignee,
+.header-user__points--araignee {
     background-color: #6699CC;
 }
 
