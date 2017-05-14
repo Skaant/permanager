@@ -50,7 +50,12 @@ après avoir cloné le répertoire
 }
 ```
 
-4. publier
+### 3'. activer l'authentification google
+1. toujours dans la console firebase, cliquer sur "authentication"
+2. cliquer sur "modes de connexion"
+3. cliquer sur "google"
+4. activer
+5. enregistrer
 
 ### 4. lancer l'application en local
 en local :
