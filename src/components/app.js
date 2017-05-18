@@ -19,11 +19,11 @@ const parseUserForState = (user, setState) => {
 
         if (_user)
             setState({ user: Object.assign({}, { ...user }, { ..._user }) })
+
         else {
 
-            console.log(user, _user)
-
             const points = [0, 1, 2, 3, 4, 5, 6, 7].reduce((result, current) => {
+
                 result[current] = 0
                 return result
             }, {})
@@ -40,6 +40,7 @@ class App extends Component {
         super()
 
         this.state = { 
+            
             providers: { google: new firebase.auth.GoogleAuthProvider() },
             user: null
         }

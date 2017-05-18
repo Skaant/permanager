@@ -8,13 +8,14 @@ import firebase from 'firebase'
 const emptyForm = {
     title: null,
     description: null,
-    categoryList: [],
-    points: 5
+    category: null,
+    points: null
 }
 
 const getUnauthorizedDisableProps = (user) => {
 
     return (!user || !user.writer) ? {
+
         disabled: 'disabled',
         title: 'vous n\'avez pas la permission d\'écrire'
     } : {}
@@ -24,22 +25,24 @@ class TodoForm extends Component {
 
     componentWillMount() { 
 
-        this.setState(Object.assign({}, emptyForm, { 
+        this.setState(Object.assign({}, emptyForm, {
+
             open: false,
             todosRef: firebase.database().ref('todos') 
-        }) )
+        }))
     }
 
     submitForm() {
 
-        const { title, description, categoryList, points } = this.state
+        const { title, description, category, points } = this.state
 
-        this.state.todosRef.push({ title, description, categoryList, points, date: Date.now() })
+        if (title && category && points)
+            this.state.todosRef.push({ title, description, category, points, date: Date.now() })
     }
 
-    updateCategories(categories) {
+    updateCategory(category) {
         
-        this.setState({ categoryList: categories })
+        this.setState({ category })
     }
 
     updatePoints(points) {
@@ -50,7 +53,7 @@ class TodoForm extends Component {
     render() {
 
         const { user } = this.props
-        const { open, title, categoryList, points } = this.state
+        const { open, title, category, points } = this.state
 
         return open ? (
             <div>
@@ -66,8 +69,10 @@ class TodoForm extends Component {
                             onChange={ (e) => this.setState({ description: e.target.value }) }>
                     </textarea>
                 </div>
-                <CategorySelector defaultValue={ categoryList } updateCategories={ this.updateCategories.bind(this) } />
-                <PointsSelector defaultValue={ points } updatePoints={ this.updatePoints.bind(this) } />
+                <CategorySelector defaultValue={ category } 
+                        updateCategory={ this.updateCategory.bind(this) } />
+                <PointsSelector defaultValue={ points } 
+                        updatePoints={ this.updatePoints.bind(this) } />
                 <div className="row">
                     <button type="button" className="four columns"
                             onClick={ () => this.setState(Object.assign({}, { open: false })) }>
@@ -76,7 +81,7 @@ class TodoForm extends Component {
                             onClick={ () => this.setState(Object.assign({}, emptyForm)) }>
                         effacer</button>
                     <button type="button" className="four columns"
-                            disabled={ !title || categoryList.length === 0 }
+                            disabled={ !title || !category }
                             { ...getUnauthorizedDisableProps(user) }
                             onClick={ () => this.submitForm() } >
                         envoyer</button>

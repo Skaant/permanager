@@ -8,6 +8,7 @@ import difficulties from '../constants/difficulties'
 const calculateDifficulty = points => {
 
     for (let i = difficulties.length - 1; i >= 0; i--) {
+
         if (points >= difficulties[i].points)
             return difficulties[i].label
     }
@@ -18,12 +19,15 @@ const calculateDifficulty = points => {
 const getUnauthorizedDisableProps = (user) => {
 
     return (!user || !user.writer) ? {
+
         disabled: 'disabled',
         title: 'vous n\'avez pas la permission d\'écrire'
     } : {}
 }
 
-export default ({ user, id, title, description, categoryList, points, users, date }) => {
+export default ({ user, id, title, description, category: categoryIndex, points, users, date }) => {
+    
+    const category = categories[categoryIndex]
 
     const difficulty = calculateDifficulty(points)
 
@@ -50,13 +54,13 @@ export default ({ user, id, title, description, categoryList, points, users, dat
         todoRef.once('value').then(snapshot => {
             
             const todo = snapshot.val()
-            const calculatedPoints = parseInt(todo.points / todo.categoryList.length)
-            const categoryListText = todo.categoryList.map((category, index) => (index > 0 ? ' ' : '') + categories[category].label)
-            const userListText = Object.values(todo.users).map((user, index) => (index > 0 ? ' ' : '') + user.split(' ')[0].toLowerCase())
+            const points = todo.points
+            const userListText = Object.values(todo.users).map((user, index) =>
+                (index > 0 ? ' ' : '') + user.split(' ')[0].toLowerCase())
 
-            const plural = calculatedPoints > 1 ? 's' : ''
-            const message = 'valider la tache "' + todo.title + '" ?\n'
-                + calculatedPoints + ' point' + plural + ' (' + categoryListText + ') redistribué' + plural + ' à ' + userListText
+            const plural = points > 1 ? 's' : ''
+            const message = 'valider la mission "' + todo.title + '" ?\n'
+                + points + ' point' + plural + ' (' + category.label + ') redistribué' + plural + ' à ' + userListText
 
             if (confirm(message)) {
                 
@@ -74,10 +78,7 @@ export default ({ user, id, title, description, categoryList, points, users, dat
 
                         updates[_user] = Object.assign({}, userMeta)
 
-                        todo.categoryList.forEach(category => {
-
-                            updates[_user]['points'][category] += calculatedPoints
-                        })
+                        updates[_user]['points'][categoryIndex] += points
                     })
 
                     usersRef.update(updates)
@@ -100,20 +101,9 @@ export default ({ user, id, title, description, categoryList, points, users, dat
             <p><i>{ (new Date(date).toLocaleString()) + ' - ' }</i>{ description }</p>
             <div className="row">
                 <div className="eight columns">
-                    { 
-                        (categoryList ||[])
-                            .map((value, index) => {
-                            
-                                const category = categories[value]
-                                const categoryName = category.label
-
-                                return (
-                                    <div key={ index } className={ 'category-list__item category-list__item--' + categoryName }
-                                            title={ category.description }>
-                                        { categoryName }</div>
-                                )
-                            })
-                    }
+                    <div className={ 'category-list__item category-list__item--' + category.label }
+                            title={ category.description }>
+                        { category.label }</div>
                     <span><b> présent{ (users && Object.keys(users).length) > 1 ? 's' : '' } : </b></span>
                     { 
                         (users && Object.keys(users).length > 0) ? Object.values(users).map((_user, index) => {

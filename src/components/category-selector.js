@@ -16,32 +16,24 @@ class CategorySelector extends Component {
 
         super()
 
-        this.state = [0, 1, 2, 3, 4, 5, 6, 7].reduce((result, current) => {
-                result[current] = (defaultValue && defaultValue.includes(current)) || fullySelected
-                return result
-            }, {})
+        this.state = { category: defaultValue || null }
     }
 
     componentWillReceiveProps(nextProps) {
 
         const { defaultValue } = nextProps
         
-        if (defaultValue.toString() !== this.props.defaultValue.toString()) {
-            
-            this.setState(Object.assign({}, [0, 1, 2, 3, 4, 5, 6, 7].reduce((result, current) => {
-                result[current] = defaultValue.includes(current)
-                return result
-            }, {})))
-        }
+        if (defaultValue && defaultValue !== this.props.defaultValue)            
+            this.setState({ category: defaultValue})
     }
 
     toggleSelection(index, selected) {
 
-        this.setState({ [index]: !selected })
+        const category = selected ? null : index
 
-        this.props.updateCategories([0, 1, 2, 3, 4, 5, 6, 7]
-            .filter((value, _index) => (index === _index) ? !selected : this.state[_index])
-        )
+        this.setState({ category  })
+
+        this.props.updateCategory(category)
     }
 
     render() {
@@ -52,7 +44,7 @@ class CategorySelector extends Component {
                 key: index,
                 index,
                 value,
-                selected: this.state[index],
+                selected: this.state.category === index,
                 toggleSelection: this.toggleSelection.bind(this)
             }
 

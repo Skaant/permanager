@@ -6,24 +6,13 @@ const filters = {
     title: (todos, title) => todos.filter(todo => todo.title.includes(title)),
     user: (todos, user) => todos.filter(todo => 
         todo.users && Object.values(todo.users).toString().toLowerCase().includes(user)),
-    categories: (todos, categories) => todos.filter(todo => {
-
-        const categoryList = todo.categoryList
-
-        for (let i = 0; i < categoryList.length; i++) {
-            
-            if (categories.includes(categoryList[i]))
-                return true
-        }
-
-        return false
-    })
+    category: (todos, category) => todos.filter(todo => todo.category === category)
 }
 
 const emptyFilters = {
         title: false,
         user: false,
-        categories: [0, 1, 2, 3, 4, 5, 6, 7]
+        category: false
 }
 
 export default class TodoFilters extends Component { 
@@ -37,9 +26,7 @@ export default class TodoFilters extends Component {
 
     componentWillUpdate(nextProps, nextState) {
 
-        if ((this.state && (this.state !== nextState))
-                || ((this.state.categories && nextState.categories) 
-                    && (this.state.categories.toString() !== nextState.categories.toString()))) {
+        if (this.state && this.state !== nextState) {
 
             let filteredTodos = this.props.todos
 
@@ -49,7 +36,8 @@ export default class TodoFilters extends Component {
             if (nextState.user) 
                 filteredTodos = filters.user(filteredTodos, nextState.user)          
             
-            filteredTodos = filters.categories(filteredTodos, (nextState.categories || [])) 
+            if (nextState.category || nextState.category === 0)
+                filteredTodos = filters.category(filteredTodos, nextState.category) 
 
             this.props.updateFilteredTodos(filteredTodos)
         }
@@ -75,9 +63,9 @@ export default class TodoFilters extends Component {
         this.setState({ max: e.target.value })
     }
     
-    updateCategories(categories) {
+    updateCategory(category) {
         
-        this.setState({ categories })
+        this.setState({ category })
     }
 
     render() {
@@ -98,8 +86,8 @@ export default class TodoFilters extends Component {
                     </div>
                     <div className="eight columns filter-categories">
                         <CategorySelector fullySelected={ true } 
-                                defaultValue={ this.state.categories }
-                                updateCategories={ this.updateCategories.bind(this) } />
+                                defaultValue={ this.state.category }
+                                updateCategory={ this.updateCategory.bind(this) } />
                     </div>
                 </div>
                 <div className="row">

@@ -27,6 +27,7 @@ const DifficultyPanel = ({ difficulty, setPointsFromDifficulty }) => {
         label: 'exceptionnelle',
         points: 50
     }].map((_difficulty, index) => (
+
         <div key={ index } 
                 className={ 'difficulty-item difficulty-item--' + _difficulty.label + (_difficulty.label === difficulty ? ' difficulty-item--selected' : '') } 
                 onClick={ () => setPointsFromDifficulty(_difficulty.points) }>
@@ -47,6 +48,7 @@ class PointsSelector extends Component {
         super()
 
         this.state = {
+
             points: defaultValue || 5,
             difficulty: 'simple'
         }
@@ -58,6 +60,7 @@ class PointsSelector extends Component {
 
         if (defaultValue !== this.props.defaultValue)
             this.setState({ 
+
                 points: defaultValue,
                 difficulty: calculateDifficulty(defaultValue)
             })
@@ -67,6 +70,7 @@ class PointsSelector extends Component {
 
         this.props.updatePoints(points)
         this.setState({ 
+
             points,
             difficulty: calculateDifficulty(points) 
         })
@@ -78,8 +82,6 @@ class PointsSelector extends Component {
     }
 
     render() {
-
-        console.log(this.state)
 
         return (
             <div className="row point-selector">
